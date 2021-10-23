@@ -1,17 +1,31 @@
+let mySaves = []
 const inputBtn = document.getElementById("input-btn")
 const inputEl = document.getElementById("input-el")
 const ulEl = document.getElementById("ul-el")
+const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("mySaves"))
+// console.log(leadsFromLocalStorage)
 
-let mySaves = []
-
-inputBtn.addEventListener("click", function () {
-    // console.log("Button clicked from addEventListener")
-    mySaves.push(inputEl.value)
-    // ulEl.textContent = mySaves
-    inputEl.value = ""
+deleteBtn.addEventListener("dblclick", function () {
+    localStorage.clear()
+    mySaves = []
     renderSaves()
 })
 
+// //truthy value statement being tested
+// if (leadsFromLocaStorage) {
+//     mySaves = leadsFromLocalStorage
+//     renderSaves()
+// }
+
+inputBtn.addEventListener("click", function () {
+    mySaves.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("mySaves", JSON.stringify(mySaves))
+    renderSaves()
+    //to verify it works
+    // console.log(localStorage.getItem("mySaves"))
+})
 
 function renderSaves() {
     let listItems = ""
